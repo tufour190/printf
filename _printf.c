@@ -12,13 +12,13 @@
  * @size: Sspecifier for size
  * Return: 1 or 2;
  */
-int format_print(const char *fmt, int *index, va_list arg_num, char holder[],
+int format_printf(const char *fmt, int *index, va_list arg_num, char holder[],
 	int flagchar, int width, int precision, int size)
 {
 	int n, form_len = 0, char_len = -1;
 	fmt_t fmt_types[] = {
 		{'c', printChar}, {'s', printStr}, {'%', printPerC},
-		{'i', printDecd}, {'d', printDecd}, {'b', print_bin},
+		{'i', printDec}, {'d', printDec}, {'b', print_bin},
 		{'u', unsignedInt}, {'o', printOct}, {'x', printhex},
 		{'X', printHEX}, {'p', printPtr}, {'S', spec_string},
 		{'r', printRev}, {'R', printR13}, {'\0', NULL}

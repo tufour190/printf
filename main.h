@@ -49,7 +49,7 @@ int printStr(va_list arg_num, char holder[],
 	int flagchar, int width, int precision, int size);
 int printPerC(va_list arg_num, char holder[],
 	int flagchar, int width, int precision, int size);
-int printDecd(va_list arg_num, char holder[],
+int printDec(va_list arg_num, char holder[],
 	int flagchar, int width, int precision, int size);
 int print_bin(va_list arg_num, char holder[],
 	int flagchar, int width, int precision, int size);
@@ -99,7 +99,7 @@ int add_hexaCode(char ascii_code, char holder[], int n);
 int is_digit(char c);
 int _putxchar (char c);
 long int convert_numSize(long int number, int size);
-long int convert_unsignSize(long int number, int size);
+long int convert_unsignSize(unsigned long int number, int size);
 int _strlen(char *s);
 
 

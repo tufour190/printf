@@ -1,14 +1,14 @@
 #include "main.h"
 
 /**
- * width_print - function that finds the width for printing
+ * width_printf - function that finds the width for printing
  * @format: Formatted string
  * @n:  arguments to be printed.
  * @arg_num: list of arguments.
  *
  * Return: width.
  */
-int width_print(const char *format, int *n, va_list arg_num)
+int width_printf(const char *format, int *n, va_list arg_num)
 {
 	int curr_n;
 	int width = 0;

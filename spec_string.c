@@ -28,7 +28,7 @@ int spec_string(va_list arg_num, char holder[],
 
 	while (s[n] != '\0')
 	{
-		if (_pintable(s[n]))
+		if (_printable(s[n]))
 			holder[n + p] = s[n];
 		else
 			p += add_hexaCode(s[n], holder, n + p);

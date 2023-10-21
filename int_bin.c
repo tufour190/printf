@@ -16,7 +16,7 @@ int print_bin(va_list arg_num, char holder[],
 	int flagchar, int width, int precision, int size)
 {
 	int num_bit = 0; /*bit size */
-	unsigned int i, n;
+	unsigned int i, n, a;
 	unsigned int temp;  /*temporary stores result of bitwise operation */
 	unsigned int b[32];
 
@@ -25,8 +25,6 @@ int print_bin(va_list arg_num, char holder[],
 	UNUSED(width);
 	UNUSED(precision);
 	UNUSED(size);
-
-	unsigned int a;
 
 	a = va_arg(arg_num, unsigned int);
 	n = 2147483648;

@@ -1,45 +1,47 @@
 #include "main.h"
 
 /**
- * _printD - function that prints integers
- * @arg_num: argument to be printed
+ * printDec - function that prints integers
+ * @arg_num: arguments to be printed
+ * @holder: buffer array to handle print
+ * @flagchar:  calculates active flags
+ * @width: get width.
+ * @precision: specifier for precision
+ * @size: specifier for size
+ *
  * Return: number of bytes printed
  */
 
-int _printD(va_list arg_num)
+int printDec(va_list arg_num, char holder[],
+	int flagchar, int width, int precision, int size)
+{
+	int n = BUFF_SIZE - 2;
+	int is_neg = 0;
+	long int a = va_arg(arg_num, long int);
+	unsigned long int number;
 
-{
-int a = va_arg(arg_num, int);
-int my_num, num = a % 10, digit, e = 1, n = 1;
+	a = convert_numSize(a, size);
 
-a = a / 10;
-my_num = a;
+	if (a == 0)
+		holder[n--] = '0';
 
-if (num < 0)
-{
-_putxchar('-');
-my_num = -my_num;
-a = -a;
-num = -num;
-n++;
+	holder[BUFF_SIZE - 1] = '\0';
+	number = (unsigned long int)a;
+
+	if (a < 0)
+	{
+		number = (unsigned long int)((-1) * a);
+		is_neg = 1;
+	}
+
+	while (number > 0)
+	{
+		holder[n--] = (number % 10) + '0';
+		number /= 10;
+	}
+
+	n++;
+
+	return (writeNumber(is_neg, n, holder, flagchar, width, precision, size));
 }
-if (my_num > 0)
-{
-while (my_num / 10 != 0)
-{
-e = e * 10;
-my_num = my_num / 10;
-}
-my_num = a;
-while (e > 0)
-{
-digit = my_num / e;
-_putxchar(digit + '0');
-my_num = my_num - (digit *e);
-e = e / 10;
-n++;
-}
-}
-_putxchar(num + '0');
-return (n);
-}
+

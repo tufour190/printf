@@ -1,40 +1,42 @@
 #include "main.h"
 
 /**
- * _specstring - prints a string of special char
+ * spec_string - prints a string of special char
  * @arg_num: special charater to be printed
+ * @holder: buffer array to handle print
+ * @flagchar:  calculates active flags
+ * @width: get width
+ * @precision: specifier for precision
+ * @size: specifier for size
+ *
  * Return: number of bytes printed
  */
 
-int _specstring(va_list arg_num)
+int spec_string(va_list arg_num, char holder[],
+	int flagchar, int width, int precision, int size)
 {
-char *str;
-int n, string_len = 0, tmp;
-str = va_arg(arg_num,  char*);
-if (str == NULL)
-{
-str = 'null';
-}
-for (n = 0; str[n] != '\0'; n++)
-{
-if (str[n] < 32 || str[n] >= 127)
-{
-_putxchar('\\');
-_putxchar('x');
-string_len = string_len + 2;
-tmp = str[n];
-if (tmp < 16)
-{
-_putxchar('0');
-string_len++;
-}
-string_len = string_len + print_spec_HEX(tmp);
-}
-else
-{
-_putxchar(str[n]);
-string_len++;
-}
-}
-return (string_len);
+	int n = 0, p = 0;
+	char *s = va_arg(arg_num, char *);
+
+	UNUSED(flagchar);
+	UNUSED(width);
+	UNUSED(precision);
+	UNUSED(size);
+
+	if (s == NULL)
+		return (write(1, "(null)", 6));
+
+	while (s[n] != '\0')
+	{
+		if (_pintable(s[n]))
+			holder[n + p] = s[n];
+		else
+			p += add_hexaCode(s[n], holder, n + p);
+
+		n++;
+	}
+
+	holder[n + p] = '\0';
+
+	return (write(1, holder, n + p));
 }

@@ -1,44 +1,38 @@
 #include "main.h"
 
 /**
- * _unsignedInt - function that prints integers
+ * unsignedInt - function that prints integers
  * @arg_num: argument to be printed
+ * @holder: buffer array to handle print
+ * @flagchar:  calculates active flags
+ * @width: get width
+ * @precision: Specifier for precision
+ * @size: Specifier for size
+ *
  * Return: number of bytes printed
  */
 
-int _unsignedInt(va_list arg_num)
+int unsignedInt(va_list arg_num, char holder[],
+	int flagchar, int width, int precision, int size)
 {
-int a = va_arg(arg_num, int);
-int my_num, num = a % 10, digit, e = 1, n = 1;
+	int n = BUFF_SIZE - 2;
 
-a = a / 10;
-my_num = a;
+	unsigned long int number = va_arg(arg_num, unsigned long int);
 
-if (num < 0)
-{
-_putxchar('-');
-my_num = -my_num;
-a = -a;
-num = -num;
-n++;
-}
-if (my_num > 0)
-{
-while (my_num / 10 != 0)
-{
-e = e * 10;
-my_num = my_num / 10;
-}
-my_num = a;
-while (e > 0)
-{
-digit = my_num / e;
-_putxchar(digit + '0');
-my_num = my_num - (digit *e);
-e = e / 10;
-n++;
-}
-}
-_putxchar(num + '0');
-return (n);
+	number = convert_unsignSize(number, size);
+
+	if (number == 0)
+		holder[n--] = '0';
+
+	holder[BUFF_SIZE - 1] = '\0';
+
+	while (number > 0)
+	{
+		holder[n--] = (number % 10) + '0';
+		number /= 10;
+	}
+
+	n++;
+
+	return (writeUnsign(0, n, holder, flagchar, width, precision, size));
 }

@@ -1,34 +1,43 @@
 #include "main.h"
 
 /**
- * _printOct - converts a number into a octadecimal
+ * printOct - converts an unsigned number into a octadecimal
  * @arg_num: number to be converted to octadecimal
+ * @holder: buffer array to handle print
+ * @flagchar:  calculates active flags
+ * @width: get width
+ * @precision: specifier for precision
+ * @size: specifier for size
+ *
  * Return: count of octal digits
  */
 
-int _printOct(va_list arg_num)
+int printOct(va_list arg_num, char holder[],
+	int flagchar, int width, int precision, int size)
 {
-int *arr;
-int n, num_digit = 0;
-unsigned int a = va_arg(arg_num, unsigned int);
-unsigned int tmp;
+	int n = BUFF_SIZE - 2;
+	unsigned long int number = va_arg(arg_num, unsigned long int);
+	unsigned long int start_num = number;
 
-while (a / 8 != 0)
-{
-a = a / 8;
-num_digit++;
-}
-num_digit++;
-arr = malloc(sizeof(int) * num_digit);
-for (n = 0; n < num_digit; n++)
-{
-arr[n] = tmp % 8;
-tmp = tmp / 8;
-}
-for (n = num_digit - 1; n >= 0; n++)
-{
-_putxchar(arr[n] + '0');
-}
-free(arr);
-return (num_digit);
+	UNUSED(width);
+
+	number = convert_unsignSize(number, size);
+
+	if (number == 0)
+		holder[n--] = '0';
+
+	holder[BUFF_SIZE - 1] = '\0';
+
+	while (number > 0)
+	{
+		holder[n--] = (number % 8) + '0';
+		number /= 8;
+	}
+
+	if (flagchar & F_HASH && start_num != 0)
+		holder[n--] = '0';
+
+	n++;
+
+	return (writeUnsign(0, n, holder, flagchar, width, precision, size));
 }

@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * format_print - function that prints
+ * format_printf - function that prints
  * an argument based on its type
  * @fmt: Format string
  * @arg_num: List of arguments to be printed.
